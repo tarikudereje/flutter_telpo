@@ -73,9 +73,10 @@ class TestPrintables {
                 fontSize: 1,
                 position: 1),
           ]);
+          _printables.add(PrintQRCode(text: "Howdy", height: 200, width: 200, position: 1));
           _printables.addAll([
             PrintRow(text: "TESTING", fontSize: 2, position: 1),
-            // PrintImage(pathUrl: "assets/images/icon.png", height: 250, width: 250, position: 1),
+            PrintAssetImage(imagePath: "assets/images/icon.png", height: 200, width: 200, position: 1),
             PrintRow(
                 text: "*****************************",
                 fontSize: 1,
@@ -84,10 +85,10 @@ class TestPrintables {
           ]);
 
           _printables.add(PrintRow(
-            text: "*Howdy",
+            text: "Howdy",
             fontSize: 1,
             position: 0,),);
-          _printables.add(PrintQRCode(text: "Howdy", height: 200, width: 200, position: 1));
+
           _printables.add(PrintAssetImage(imagePath: "assets/images/icon.png", height: 200, width: 200, position: 1));
           _printables.add(WalkPaper(step: 10));
           _printer.print(_printables.toList());
