@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_telpo/model/row.dart';
 
+export 'package:flutter_telpo/model/row.dart';
+
 class FlutterTelpo {
   late MethodChannel _platform;
 
   FlutterTelpo(){
     _platform = MethodChannel("com.efikas.app/printer");
   }
-
 
   Future<bool?> isConnected() {
     return _platform.invokeMethod('isConnected');

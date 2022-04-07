@@ -14,8 +14,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import androidx.annotation.NonNull
-import com.telpo.tps550.api.util.StringUtil
-import com.telpo.tps550.api.util.SystemUtil
+//import com.telpo.tps550.api.util.StringUtil
+//import com.telpo.tps550.api.util.SystemUtil
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -31,7 +31,8 @@ import java.util.*
 class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   public lateinit var channel : MethodChannel
   private val channelId = "com.efikas.app/printer";
-  private lateinit var usbPrinter: USBPrinter;
+ private lateinit var usbPrinter: USBPrinter;
+//   private lateinit var thermalPrinter: ThermalPrinterClass;
   private var LowBattery = false
   private var _isConnected = false;
   private var documentDetails: MutableList<Map<String, Any>> = ArrayList();
@@ -46,7 +47,8 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     channel.setMethodCallHandler(this);
       binding = flutterPluginBinding;
       context = flutterPluginBinding.applicationContext;
-      usbPrinter = USBPrinter(this@FlutterTelpoPlugin);
+     usbPrinter = USBPrinter(this@FlutterTelpoPlugin);
+    //   thermalPrinter = ThermalPrinterClass(this@FlutterTelpoPlugin);
 
   }
 
@@ -70,7 +72,8 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         result.success(_isConnected);
     } else if (call.method == "printDocument") {
         documentDetails = call.argument("details") ?: ArrayList();
-        usbPrinter.printText(documentDetails);
+       usbPrinter.printText(documentDetails);
+        // thermalPrinter.printText(documentDetails);
     } else if (call.method == "disconnect") {
         if (_isConnected) {
             context.unregisterReceiver(printReceive);
@@ -87,15 +90,14 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         context.unregisterReceiver(printReceive)
     }
     channel.setMethodCallHandler(null);
-//      binding = null;
+    //   thermalPrinter.stop();
   }
 
     override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -103,7 +105,6 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        TODO("Not yet implemented")
     }
 
   private val printReceive: BroadcastReceiver = object : BroadcastReceiver() {
@@ -114,13 +115,13 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
               val level: Int = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
               val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 0)
               //TPS390 can not print,while in low battery,whether is charging or not charging
-              LowBattery = if (SystemUtil.getDeviceType() == StringUtil.DeviceModelEnum.TPS390.ordinal) {
-                  if (level * 5 <= scale) {
-                      true
-                  } else {
-                      false
-                  }
-              } else {
+//              LowBattery = if (SystemUtil.getDeviceType() == StringUtil.DeviceModelEnum.TPS390.ordinal) {
+//                  if (level * 5 <= scale) {
+//                      true
+//                  } else {
+//                      false
+//                  }
+//              } else {
                   if (status != BatteryManager.BATTERY_STATUS_CHARGING) {
                       if (level * 5 <= scale) {
                           true
@@ -130,7 +131,7 @@ class FlutterTelpoPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
                   } else {
                       false
                   }
-              }
+//              }
           } else if (action == "android.intent.action.BATTERY_CAPACITY_EVENT") {
               val status: Int = intent.getIntExtra("action", 0)
               val level: Int = intent.getIntExtra("level", 0)
