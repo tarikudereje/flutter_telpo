@@ -1,4 +1,4 @@
-package com.fluttertelpo.flutter_telpo
+package com.efikas.telpo
 
 import android.content.res.AssetManager
 import android.graphics.Bitmap

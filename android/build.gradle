@@ -1,5 +1,5 @@
-group 'com.fluttertelpo.flutter_telpo'
-version '1.0-SNAPSHOT'
+group 'com.efikas.telpo'
+version '0.0.2'
 
 buildscript {
     ext.kotlin_version = '1.5.20'
@@ -45,10 +45,9 @@ configurations.all {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // implementation files('src/libs/telpo_api.jar')
     implementation files('src/libs/telpo_api2.jar')
     // implementation files('src/libs/core-3.0.1.jar')
     implementation('com.github.leyan95:android-zxingLibrary:0.1.2-PRE') {
         exclude module: "core_3.0.1.jar"
     }
-}02103532
+}
