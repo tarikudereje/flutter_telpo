@@ -1,6 +1,6 @@
 name: flutter_telpo
 description: A flutter plugin for Telpo TPS320 POS. This plugin only handles the ability of the device to communicate with the it thermal printer. 
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/efikas/telpo.git
 repository: https://github.com/efikas/telpo
 
