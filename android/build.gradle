@@ -49,5 +49,6 @@ dependencies {
     // implementation files('src/libs/core-3.0.1.jar')
     implementation('com.github.leyan95:android-zxingLibrary:0.1.2-PRE') {
         exclude module: "core_3.0.1.jar"
+		exclude group: 'com.google.zxing', module: 'core'
     }
 }
